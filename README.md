@@ -26,13 +26,13 @@ In this lab you'll use these  capabilities  to deploy and test  a small Java EE 
    oc new-project srpl-usernnn
    ```
 
-2.2 Tag the Docker Hub Open Liberty  image to create a local Imagestream
+2.2 Tag the Docker Hub Open Liberty  image to create a local ImageStream
 
    ```
    oc tag docker.io/open-liberty:latest open-liberty:latest
    ```
 
-2.3 Tag the Docker Hub Infinispan server image to create a local Imagestream
+2.3 Tag the Docker Hub Infinispan server image to create a local ImageStream
 
    ```
    oc tag docker.io/infinispan/server:latest infinispan-server:latest
