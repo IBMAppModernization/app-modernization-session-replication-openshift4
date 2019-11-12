@@ -108,7 +108,7 @@ When you bring up the app in a new browser session the banner on the web page wi
 
 ## Cleanup
 
-Run the following commands to cleanup (note: you can copy all the commands at once and post them into you command window)
+Run the following commands to cleanup (note: you can copy all the commands at once and post them into your command window)
 
    ```
    oc delete all,routes,is --selector app=simple-session
