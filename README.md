@@ -20,25 +20,30 @@ In this lab you'll use these  capabilities  to deploy and test  a small Java EE 
 
 ### Step 2: Create ImageStreams for the Open Liberty base image and Infinispan server image
 
-2.1 Create a new OpenShift project for this lab (Note: your project name must be unique. Combine your lab STUDENT ID with the prefix srpl- to create a unique project name like srpl-usernnn where usernnn is your username e.g. user012)
+2.1 Set an environment variable for your *studentid* based on your user identifier from the instructor (e.g. **user001**)
+
+    ```bash
+    export STUDENTID=userNNN
+    ```
+2.2 Create a new OpenShift project for this lab
 
    ```bash
-   oc new-project srpl-usernnn
+   oc new-project srpl-$STUDENTID
    ```
 
-2.2 Tag the Docker Hub Open Liberty  image to create a local ImageStream
+2.3 Tag the Docker Hub Open Liberty  image to create a local ImageStream
 
    ```
    oc tag docker.io/open-liberty:latest open-liberty:latest
    ```
 
-2.3 Tag the Docker Hub Infinispan server image to create a local ImageStream
+2.4 Tag the Docker Hub Infinispan server image to create a local ImageStream
 
    ```
    oc tag docker.io/infinispan/server:latest infinispan-server:latest
    ```
 
-### Step 3: Install the sample  app using a template that utilizes Docker  to build the app image   
+### Step 3: Install the sample  app and Infinispan server using templates  
 
 3.1  From the client terminal window clone the following Git repo with the app used in this lab
 
@@ -75,7 +80,7 @@ In this lab you'll use these  capabilities  to deploy and test  a small Java EE 
 
 3.12 Click  **Continue to the project overview**
 
-3.13 Wait until the Pod for the sample  app shows as running (and ready) then click on the route to get to the app's endpoint
+3.13 Wait until the Pods for the sample  app shows as running (and ready) then click on the route to get to the app's endpoint
 
   ![Wait for app](images/ss3.png)
 
@@ -83,7 +88,7 @@ In this lab you'll use these  capabilities  to deploy and test  a small Java EE 
 
 When you bring up the app in a new browser session the banner on the web page will say  **Hello stranger**. A new HTTPSession object is created and it's state is replicated to all the pods. When the app encounters an existing HTTPSession object the banner message will change to **Welcome back friend**.  
 
-4.1 When you bring up the app verify that the banner says  **Hello stranger**
+4.1 When the app appears in your browser verify that the banner says  **Hello stranger**
 
    ![Running app](images/ss4.png)
 
@@ -95,7 +100,7 @@ When you bring up the app in a new browser session the banner on the web page wi
 
    ![New pod](images/ss6.png)
 
-4.4 Wait for the 3rd pod to be ready (ie circle around number of pods will be one color)
+4.4 Wait for the 3rd pod to be ready (ie circle around number of pods will be a  uniform  color)
 
    ![New pod ready](images/ss7.png)
 
@@ -103,7 +108,7 @@ When you bring up the app in a new browser session the banner on the web page wi
 
 ## Cleanup
 
-1. Run the following commands to cleanup (note: you can copy all the commands at once and post them into you command window)
+Run the following commands to cleanup (note: you can copy all the commands at once and post them into you command window)
 
    ```
    oc delete all,routes,is --selector app=simple-session
