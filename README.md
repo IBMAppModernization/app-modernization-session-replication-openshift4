@@ -54,6 +54,7 @@ export STUDENTID=<your initial>
 3.1  From the client terminal window clone the following Git repo with the app used in this lab
 
    ```bash
+   cd ~
    git clone https://github.com/IBMAppModernization/simple-http-session-app.git
    cd simple-http-session-app
    ```
@@ -80,7 +81,7 @@ export STUDENTID=<your initial>
 
 3.7 Select **Others**.
 
-3.8 Click on the **Infinispan server** template.
+3.8 Select the **Infinispan server** template.
 
 3.9 Click **Instantiate Template**.
 
@@ -88,23 +89,21 @@ export STUDENTID=<your initial>
 
 3.11 Wait until the status of the template instance becomes **Ready**.
 
-3.12 the Pod for the Infinispan server shows as running (and ready)
-
    ![Launch app](images/ss2-1.png)
 
-3.13 In top left navigation pane, click on **+Add**.
+3.12 In top left navigation pane, click on **+Add**.
 
-3.14 Click on `From Catalog` tile in the right pane.
+3.13 Click on **From Catalog** tile in the right pane.
 
-3.15 Select **Others**.
+3.14 Select **Others**.
 
-3.16 Click on the **Simple HttpSession sample on Liberty** template.
+3.15 Select the **Simple HttpSession sample on Liberty** template.
 
-3.17 Click **Instantiate Template**.
+3.16 Click **Instantiate Template**.
 
-3.18 Accept all the defaults and click **Create**.
+3.17 Accept all the defaults and click **Create**.
 
-3.19 Wait until the status of the template instance becomes **Ready**.
+3.18 Wait until the status of the template instance becomes **Ready**.
 
 
 ### Step 4: Test the sample app
