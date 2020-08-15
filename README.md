@@ -14,16 +14,21 @@ In this lab you'll use these  capabilities  to deploy and test  a small Java EE 
 
 1.2 From the OpenShift web console click on your username in the upper right and select **Copy Login Command**
 
-   ![Copy Login Command](images/ss0.png)
+   ![Copy Login Command](images/ss0-1.png)
 
 1.3 Paste the login command in a terminal window and run it (Note: leave the web console browser tab open as you'll need it later on in the lab)
 
 ### Step 2: Create ImageStreams for the Open Liberty base image and Infinispan server image
 
-2.1 Set an environment variable for your *studentid* based on your user identifier from the instructor (e.g. **user001**)
+2.1 Set an environment variable for your *studentid* based on your user identifier from the instructor (e.g. **user001**). If you have your own cluster, 
 
     ```bash
     export STUDENTID=userNNN
+    ```
+    If you have your own cluster, set the environment variable to your initial.
+
+    ```bash
+    export STUDENTID=<your initial>
     ```
 2.2 Create a new OpenShift project for this lab
 
@@ -43,7 +48,7 @@ In this lab you'll use these  capabilities  to deploy and test  a small Java EE 
    oc tag docker.io/infinispan/server:latest infinispan-server:latest
    ```
 
-### Step 3: Install the sample  app and Infinispan server using templates  
+### Step 3: Install the sample app and Infinispan server using templates  
 
 3.1  From the client terminal window clone the following Git repo with the app used in this lab
 
@@ -55,56 +60,91 @@ In this lab you'll use these  capabilities  to deploy and test  a small Java EE 
 3.2 Add the sample app  and Infinispan server templates to your project
 
    ```bash
-   oc create -f openshift/templates/infinispan
+    
    ```
 
-3.3 In your Web console browser tab make sure you're in your new  project (top left) and click on **Add to Project -> Select from Project** (top right)
+3.3 In your OpenShift Web console, switch to Developer view.
 
-   ![View All](images/ss1.png)
+   ![View All](images/ss0-2.png)
 
-3.4 Click on the **Infinispan server** template and then  Click **Next**.
+3.4 From the Project dropdown list, select your project(srpl-$STUDENTID).
 
-3.5 Click **Next**, accept all the defaults and click **Create**
+   ![View All](images/ss0-3.png)
 
-3.6 Click  **Continue to the project overview**
+3.5 In top left navigation pane, click on **+Add**.
 
-3.8 Wait until the Pod for the Infinispan server shows as running (and ready)
+   ![View All](images/ss1-1.png)
 
-   ![Launch app](images/ss2.png)
+3.6 Click on `From Catalog` tile in the right pane.
 
-3.9 In your Web console browser tab  click on **Add to Project -> Select from Project** (top right)
+3.7 Select **Others**.
 
-3.10 Click on the **Simple HttpSession sample on Liberty** template and then Click **Next**.
+3.8 Click on the **Infinispan server** template.
 
-3.11 Click **Next**, accept all the defaults and click **Create**
+3.9 Click **Instantiate Template**.
 
-3.12 Click  **Continue to the project overview**
+3.10 Accept all the defaults and click **Create**.
 
-3.13 Wait until the Pods for the sample  app shows as running (and ready) then click on the route to get to the app's endpoint
+3.11 Wait until the status of the template instance becomes **Ready**.
 
-  ![Wait for app](images/ss3.png)
+3.12 the Pod for the Infinispan server shows as running (and ready)
+
+   ![Launch app](images/ss2-1.png)
+
+3.13 In top left navigation pane, click on **+Add**.
+
+3.14 Click on `From Catalog` tile in the right pane.
+
+3.15 Select **Others**.
+
+3.16 Click on the **Simple HttpSession sample on Liberty** template.
+
+3.17 Click **Instantiate Template**.
+
+3.18 Accept all the defaults and click **Create**.
+
+3.19 Wait until the status of the template instance becomes **Ready**.
+
 
 ### Step 4: Test the sample app
 
 When you bring up the app in a new browser session the banner on the web page will say  **Hello stranger**. A new HTTPSession object is created and it's state is replicated to all the pods. When the app encounters an existing HTTPSession object the banner message will change to **Welcome back friend**.  
 
-4.1 When the app appears in your browser verify that the banner says  **Hello stranger**
+4.1 In top left navigation pane of the web console, click on **Topology**. Two applications should appear.
+
+  ![Wait for app](images/ss3-1.png)
+
+4.2 Select **simple-session** entry or icon.
+
+4.3 Go to **Resources** tab.
+
+4.4 Scroll down to **Routes** section.
+
+4.5 Click the **Location** link under `simple-session` to launch the sample application.
+
+  ![Wait for app](images/ss3-2.png)
+
+4.6 When the app appears in your browser verify that the banner says **Hello stranger**
 
    ![Running app](images/ss4.png)
 
-4.2 Keep refreshing the URL and verify that the POD IP address changes each time and the current state of the  session data is maintained and used by all pods (i.e. the banner should say **Welcome back friend**  and the access count should keep incrementing). Keep this browser tab open as you'll need it for further testing.
+4.7 Keep refreshing the URL and verify that the POD IP address changes each time and the current state of the session data is maintained and used by all pods (i.e. the banner should say **Welcome back friend**  and the access count should keep incrementing). Keep this browser tab open as you'll need it for further testing.
 
    ![Session state shared](images/ss5.png)
 
-4.3 Next you'll verify that if you increase the number of replicas the new replicas will automatically access the shared session state. In your Web console browser tab increase the number of pods  for the **simple-session** app to 3 as illustrated below:
+4.8 Next you'll verify that if you increase the number of replicas the new replicas will automatically access the shared session state. 
 
-   ![New pod](images/ss6.png)
+4.9 In your Web console browser tab, go to **Overview** tab.
 
-4.4 Wait for the 3rd pod to be ready (ie circle around number of pods will be a  uniform  color)
+4.10 Increase the number of pods for the **simple-session** app to 3 as illustrated below:
 
-   ![New pod ready](images/ss7.png)
+   ![New pod](images/ss6-1.png)
 
-4.5 Go back to the browser tab where you had the **simple-session** app running and keep refreshing the page. Verify that the 3rd pod is now being accessed and that the access count is never reset to 0.
+4.11 Wait for the 3rd pod to be ready (ie circle around number of pods will be a  uniform  color)
+
+   ![New pod ready](images/ss7-1.png)
+
+4.12 Go back to the browser tab where you had the **simple-session** app running and keep refreshing the page. Verify that the 3rd pod is now being accessed and that the access count is never reset to 0. Now, you should rotate between 3 **POD Name** and **POD IP address** when refreshing the sample app.
 
 ## Cleanup
 
@@ -116,6 +156,11 @@ Run the following commands to cleanup (note: you can copy all the commands at on
    oc delete is infinispan-server
    oc delete is open-liberty
    ```
+Alternatively, you may delete your project and the action will delete all resources in the project.
+
+    ```
+    oc delete project srpl-$STUDENTID
+    ```
 
 ## Summary
 Congratulations. You used the **session-cache** feature in WebSphere Liberty along with the Open Source **Infinispan Data Grid** to demonstrate HttpSession replication in OpenShift. This allowed you to  deploy  a stateful application in a stateless manner (i.e each application pod can be deleted or replaced at anytime without losing application state).
