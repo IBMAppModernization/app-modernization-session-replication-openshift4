@@ -22,14 +22,15 @@ In this lab you'll use these  capabilities  to deploy and test  a small Java EE 
 
 2.1 Set an environment variable for your *studentid* based on your user identifier from the instructor (e.g. **user001**). If you have your own cluster, 
 
-    ```bash
-    export STUDENTID=userNNN
-    ```
-    If you have your own cluster, set the environment variable to your initial.
+```bash
+export STUDENTID=userNNN
+```
 
-    ```bash
-    export STUDENTID=<your initial>
-    ```
+If you have your own cluster, set the environment variable to your initial.
+
+```bash
+export STUDENTID=<your initial>
+```
 2.2 Create a new OpenShift project for this lab
 
    ```bash
@@ -60,7 +61,7 @@ In this lab you'll use these  capabilities  to deploy and test  a small Java EE 
 3.2 Add the sample app  and Infinispan server templates to your project
 
    ```bash
-    
+   oc create -f openshift/templates/infinispan
    ```
 
 3.3 In your OpenShift Web console, switch to Developer view.
@@ -75,7 +76,7 @@ In this lab you'll use these  capabilities  to deploy and test  a small Java EE 
 
    ![View All](images/ss1-1.png)
 
-3.6 Click on `From Catalog` tile in the right pane.
+3.6 Click on **From Catalog** tile in the right pane.
 
 3.7 Select **Others**.
 
