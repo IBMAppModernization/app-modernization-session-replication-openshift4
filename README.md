@@ -55,7 +55,7 @@ export STUDENTID=<your initial>
 
    ```bash
    cd ~
-   git clone https://github.com/IBMAppModernization/simple-http-session-app.git
+   git clone https://github.com/lee-zhg/simple-http-session-app.git
    cd simple-http-session-app
    ```
 
